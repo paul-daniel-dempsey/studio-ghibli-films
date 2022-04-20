@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { filmObj } from './components/film';
+import Films from './components/films';
+import Header from './components/header';
+import axios from 'axios';
 
 function App() {
+
+  const [currentPage] = useState<number>(1);
+  const [films, setFilms] = useState<Array<filmObj>>([]);
+
+  useEffect(() => {
+    getFilms(currentPage);
+  }, [currentPage])
+
+  const getFilms = async (pageNumber: number) => {
+    const apiResponse = await axios.get(`https://ghibliapi.herokuapp.com/films?page=${pageNumber}`);
+    setFilms(apiResponse.data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="app">
+      <Header filmPage={currentPage} />
+      <Films films={films} />
+      <footer />
+  </div>
   );
 }
 

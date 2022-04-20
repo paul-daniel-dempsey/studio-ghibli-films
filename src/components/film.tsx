@@ -18,10 +18,13 @@ const Film : React.FC<FilmProps> = ( {film}) =>
         imageSrc = film.image;
     };
 
+    // locater testid (no spaces)
+    const testid = film.title.split(' ').join('');
+
     return (
         <div className="film-item">
             <img className="film-item__img" src={imageSrc} alt={film.title} height="120"/>
-            <h2>{film.title}</h2>
+            <h2 data-testid={testid}>{film.title}</h2>
             <p> {film.description} </p>
         </div>
     )

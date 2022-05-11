@@ -15,9 +15,6 @@ function App() {
   }, [currentPage])
 
   const getFilms = async (pageNumber: number) => {
-
-      //await axios.get(`https://ghibliapi.herokuapp.com/err500?page=${pageNumber}`)
-      //await axios.get(`https://ghibliapi.herokuapp.com/err418?page=${pageNumber}`)
       await axios.get(`https://ghibliapi.herokuapp.com/films?page=${pageNumber}`)
       .then((apiResponse: AxiosResponse) => {
         setFilms(apiResponse.data);
